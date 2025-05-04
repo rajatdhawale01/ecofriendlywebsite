@@ -1,0 +1,47 @@
+{
+    "cart": {
+        "rajat": []
+    },
+    "users": [
+        "rajat",
+        "rajat123"
+    ],
+    "orders": [
+        {
+            "id": 1,
+            "user": "rajat",
+            "items": [
+                {
+                    "name": "Bamboo Toothbrush",
+                    "price": 50,
+                    "quantity": 1
+                },
+                {
+                    "name": "Reusable Bag",
+                    "price": 120,
+                    "quantity": 1
+                },
+                {
+                    "name": "Organic Soap",
+                    "price": 80,
+                    "quantity": 1
+                }
+            ],
+            "time": "2025-05-04 19:21:25",
+            "status": "Order Placed"
+        },
+        {
+            "id": 2,
+            "user": "rajat",
+            "items": [
+                {
+                    "name": "Reusable Bag",
+                    "price": 120,
+                    "quantity": 1
+                }
+            ],
+            "time": "2025-05-04 19:36:44",
+            "status": "Order Placed"
+        }
+    ]
+}
