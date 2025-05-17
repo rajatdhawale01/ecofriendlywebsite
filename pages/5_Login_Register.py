@@ -4,7 +4,7 @@ import base64
 from components.ecobot import render_ecobot
 
 # ✅ Set page config FIRST
-st.set_page_config(page_title="Login | EcoShop", page_icon="👤", layout="centered")
+#st.set_page_config(page_title="Login | EcoShop", page_icon="👤", layout="centered")
 
 # ✅ Function to apply local background image
 def set_local_background(image_path):
