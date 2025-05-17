@@ -28,7 +28,7 @@ def set_local_background(image_path):
         st.markdown(css, unsafe_allow_html=True)
 
 # Apply background image
-set_local_background("assets/background_img.jpg")
+#set_local_background("assets/background_img.jpg")
 
 # Page content
 st.markdown("<h2 style='text-align:center;'>🌿 Welcome to EcoShop</h2>", unsafe_allow_html=True)
