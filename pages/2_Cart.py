@@ -25,7 +25,7 @@ def set_local_background(image_path):
         st.markdown(css, unsafe_allow_html=True)
 
 # 🌄 Use your local image
-set_local_background("assets/background_img.jpg")
+#set_local_background("assets/background_img.jpg")
 
 # 🛒 Cart display
 st.title("🛍️ Your Cart")
