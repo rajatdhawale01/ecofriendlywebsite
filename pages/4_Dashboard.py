@@ -1,10 +1,37 @@
 import streamlit as st
 import io
+import base64
+import pandas as pd
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
 from utils import load_db
+from components.ecobot import render_ecobot
+
+# 🔄 Add background image from local
+def set_local_background(image_path):
+    with open(image_path, "rb") as img_file:
+        encoded = base64.b64encode(img_file.read()).decode()
+        css = f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }}
+        .block-container {{
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+        }}
+        </style>
+        """
+        st.markdown(css, unsafe_allow_html=True)
+
+# ✅ Apply background
+set_local_background("assets/background_img.jpg")
 
 st.title("📊 Dashboard")
 
@@ -16,6 +43,39 @@ else:
     orders = [o for o in db["orders"] if o["user"] == user]
     if not orders:
         st.info("No past orders found.")
+    else:
+        # --- Analytics Section ---
+        total_orders = len(orders)
+        total_spent = 0
+        total_items = 0
+        product_count = {}
+
+        for order in orders:
+            for item in order["items"]:
+                total_spent += item["price"] * item["quantity"]
+                total_items += item["quantity"]
+                product_count[item["name"]] = product_count.get(item["name"], 0) + item["quantity"]
+
+        avg_order_value = total_spent / total_orders if total_orders else 0
+        most_bought = max(product_count, key=product_count.get) if product_count else "N/A"
+
+        st.markdown("## 📈 Your Shopping Summary")
+        col1, col2, col3 = st.columns(3)
+        col1.metric("🛒 Total Orders", total_orders)
+        col2.metric("📦 Items Purchased", total_items)
+        col3.metric("💰 Total Spent", f"₹{total_spent}")
+        st.metric("📊 Avg Order Value", f"₹{avg_order_value:.2f}")
+        st.metric("🏆 Most Purchased Item", most_bought)
+
+        # Optional chart
+        if product_count:
+            df = pd.DataFrame({
+                "Product": list(product_count.keys()),
+                "Quantity": list(product_count.values())
+            })
+            st.bar_chart(df.set_index("Product"))
+
+    # --- Orders Display ---
     for order in orders:
         st.subheader(f"Order #{order['id']} - {order['time']}")
         for item in order["items"]:
@@ -54,3 +114,7 @@ else:
             doc.build(story)
             buffer.seek(0)
             st.download_button("Download PDF", data=buffer, file_name=f"invoice_{order['id']}.pdf", mime="application/pdf")
+
+
+# ✅ Display EcoBot on the same page
+render_ecobot()

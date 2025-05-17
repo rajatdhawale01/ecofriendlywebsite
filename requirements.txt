@@ -1,2 +1,6 @@
 streamlit
-reportlab
+langchain
+langchain-openai
+python-dotenv
+openai
+pillow

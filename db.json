@@ -1,6 +1,25 @@
 {
     "cart": {
-        "rajat": []
+        "rajat": [
+            {
+                "name": "Beeswax Wrap",
+                "price": 150,
+                "img": "assets/beeswax.jpg",
+                "quantity": 1
+            },
+            {
+                "name": "Reusable Bag",
+                "price": 120,
+                "img": "assets/bag.jpg",
+                "quantity": 1
+            },
+            {
+                "name": "Organic Soap",
+                "price": 80,
+                "img": "assets/soap.jpg",
+                "quantity": 1
+            }
+        ]
     },
     "users": [
         "rajat",
