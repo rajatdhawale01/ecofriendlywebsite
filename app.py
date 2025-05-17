@@ -1,13 +1,13 @@
 import streamlit as st
 import base64
-from dotenv import load_dotenv
+import os
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 
-# ✅ Set Streamlit config
+# ✅ Set page config
 st.set_page_config(page_title="EcoShop", page_icon="🛒", layout="wide")
 
-# ✅ Function to load and apply local background
+# ✅ Improved contrast for overlay + text
 def set_local_background(image_path):
     with open(image_path, "rb") as img_file:
         encoded = base64.b64encode(img_file.read()).decode()
@@ -20,12 +20,12 @@ def set_local_background(image_path):
             background-attachment: fixed;
         }}
         .block-container {{
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.95); /* stronger overlay */
             padding: 4rem;
             border-radius: 15px;
         }}
-        h1, h2, h3 {{
-            color: #2e7d32;
+        h1, h2, h3, p, span, div {{
+            color: #222 !important; /* force readable text color */
         }}
         </style>
         """
@@ -55,11 +55,11 @@ Use the sidebar to navigate through the app:
 - 📊 Dashboard
 - 👤 Login/Register
 - 📘 About Us
+- 🤖 EcoBot (Chat Assistant)
 """)
 
 # ✅ Load OpenAI API Key and model
-load_dotenv()
-model = ChatOpenAI(model="gpt-3.5-turbo")
+model = ChatOpenAI(model="gpt-3.5-turbo", openai_api_key=os.getenv("OPENAI_API_KEY"))
 
 # ✅ Sidebar: EcoBot Chat Assistant
 with st.sidebar.expander("🤖 EcoBot - Chat with our Assistant", expanded=False):
@@ -68,12 +68,12 @@ with st.sidebar.expander("🤖 EcoBot - Chat with our Assistant", expanded=False
             SystemMessage("You are an expert on eco-friendly products and sustainability. Only answer questions related to green living. Politely decline others.")
         ]
 
-    # 🗨️ Display conversation history
+    # 🗨️ Show chat history
     for msg in st.session_state.eco_messages[1:]:
         role = "👤 You" if isinstance(msg, HumanMessage) else "🤖 EcoBot"
         st.markdown(f"**{role}:** {msg.content}")
 
-    # 📝 Input at bottom using form
+    # ✍️ Input at bottom
     with st.form(key="eco_form", clear_on_submit=True):
         eco_input = st.text_input("💬 Ask about eco-products:")
         submitted = st.form_submit_button("Send")
