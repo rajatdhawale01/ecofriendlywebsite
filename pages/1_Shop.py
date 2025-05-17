@@ -19,7 +19,7 @@ else:
         {"name": "Organic Soap", "price": 80, "img": "assets/soap.jpg"},
         {"name": "Eco Water Bottle", "price": 250, "img": "assets/bottle.jpg"},
         {"name": "Compost Bin", "price": 500, "img": "assets/compost.jpg"},
-        {"name": "Beeswax Wrap", "price": 150, "img": "assets/beeswax.jpg"}
+        {"name": "Beeswax Wrap", "price": 150, "img": "assets/Beeswax.jpg"}
     ]
 
     for row in range(0, len(products), 3):
