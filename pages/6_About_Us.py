@@ -1,11 +1,10 @@
 import streamlit as st
 import base64
-from components.ecobot import render_ecobot
 
-# ✅ Set page config first
+# ✅ Set page config
 st.set_page_config(page_title="About Us | EcoShop", page_icon="🌿", layout="centered")
 
-# ✅ Function to set local background image
+# ✅ Function to set local background image with high-contrast overlay
 def set_local_background(image_path):
     with open(image_path, "rb") as img_file:
         encoded = base64.b64encode(img_file.read()).decode()
@@ -18,19 +17,19 @@ def set_local_background(image_path):
             background-attachment: fixed;
         }}
         .block-container {{
-            background-color: rgba(255, 255, 255, 0.92);
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 3rem;
             border-radius: 12px;
         }}
-        h1, h2, h3, p {{
-            color: #2e7d32;
+        h1, h2, h3, p, span, li, div {{
+            color: #222 !important;
         }}
         </style>
         """
         st.markdown(css, unsafe_allow_html=True)
 
 # ✅ Apply background
-set_local_background("assets/background_img.jpg")
+set_local_background("assets/about_bg.jpg")
 
 # ✅ About Us Content
 st.title("🌿 About EcoShop")
@@ -49,9 +48,9 @@ To empower conscious consumers to choose eco-friendly alternatives that reduce w
 
 ### 🌍 Our Values
 
-- ♻️ Sustainability First
-- 🧼 Natural, Chemical-Free Products
-- 🧑‍🤝‍🧑 Ethical Sourcing
+- ♻️ Sustainability First  
+- 🧼 Natural, Chemical-Free Products  
+- 🧑‍🤝‍🧑 Ethical Sourcing  
 - 🌱 Reusability & Zero-Waste Lifestyle
 
 ---
@@ -68,7 +67,3 @@ Have questions or feedback?
 Reach us at: **support@ecoshop.org**
 
 """)
-
-
-# ✅ Display EcoBot on the same page
-render_ecobot()
