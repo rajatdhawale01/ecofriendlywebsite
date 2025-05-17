@@ -29,7 +29,7 @@ def set_local_background(image_path):
         st.markdown(css, unsafe_allow_html=True)
 
 # ✅ Apply background
-set_local_background("assets/about_bg.jpg")
+set_local_background("assets/background_img.jpg")
 
 # ✅ About Us Content
 st.title("🌿 About EcoShop")
