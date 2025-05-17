@@ -2,10 +2,9 @@ import streamlit as st
 import base64
 from components.ecobot import render_ecobot
 
-# ✅ Wide layout fixes the invisible left-margin issue
+# ✅ Wide layout + visible sidebar
 st.set_page_config(page_title="About Us | EcoShop", page_icon="🌿", layout="wide")
 
-# ✅ Function to apply local background with improved readability and styling
 def set_local_background(image_path):
     with open(image_path, "rb") as img_file:
         encoded = base64.b64encode(img_file.read()).decode()
@@ -22,7 +21,12 @@ def set_local_background(image_path):
             padding: 3rem;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            margin: 2rem auto;
+        }}
+        .sidebar .block-container {{
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }}
         h1, h2, h3, p, span, li, div {{
             color: #222 !important;
@@ -31,10 +35,10 @@ def set_local_background(image_path):
         """
         st.markdown(css, unsafe_allow_html=True)
 
-# ✅ Apply background image
-set_local_background("assets/background_img.jpg")
+# ✅ Apply background
+set_local_background("assets/about_bg.jpg")
 
-# ✅ About Us content
+# ✅ Content
 st.title("🌿 About EcoShop")
 
 st.markdown("""
@@ -70,6 +74,6 @@ Have questions or feedback?
 Reach us at: **support@ecoshop.org**
 """)
 
-
 # ✅ Display EcoBot on the same page
 render_ecobot()
+
