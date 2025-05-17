@@ -1,10 +1,11 @@
 import streamlit as st
 import base64
+from components.ecobot import render_ecobot
 
-# ✅ Set page config
-st.set_page_config(page_title="About Us | EcoShop", page_icon="🌿", layout="centered")
+# ✅ Wide layout fixes the invisible left-margin issue
+st.set_page_config(page_title="About Us | EcoShop", page_icon="🌿", layout="wide")
 
-# ✅ Function to set local background image with high-contrast overlay
+# ✅ Function to apply local background with improved readability and styling
 def set_local_background(image_path):
     with open(image_path, "rb") as img_file:
         encoded = base64.b64encode(img_file.read()).decode()
@@ -19,7 +20,9 @@ def set_local_background(image_path):
         .block-container {{
             background-color: rgba(255, 255, 255, 0.95);
             padding: 3rem;
-            border-radius: 12px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin: 2rem auto;
         }}
         h1, h2, h3, p, span, li, div {{
             color: #222 !important;
@@ -28,10 +31,10 @@ def set_local_background(image_path):
         """
         st.markdown(css, unsafe_allow_html=True)
 
-# ✅ Apply background
-set_local_background("assets/background_img.jpg")
+# ✅ Apply background image
+set_local_background("assets/about_bg.jpg")
 
-# ✅ About Us Content
+# ✅ About Us content
 st.title("🌿 About EcoShop")
 
 st.markdown("""
@@ -65,5 +68,8 @@ We’re a team of engineers, designers, and environmentalists passionate about c
 
 Have questions or feedback?  
 Reach us at: **support@ecoshop.org**
-
 """)
+
+
+# ✅ Display EcoBot on the same page
+render_ecobot()
