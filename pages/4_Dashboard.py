@@ -31,7 +31,7 @@ def set_local_background(image_path):
         st.markdown(css, unsafe_allow_html=True)
 
 # ✅ Apply background
-set_local_background("assets/background_img.jpg")
+#set_local_background("assets/background_img.jpg")
 
 st.title("📊 Dashboard")
 
