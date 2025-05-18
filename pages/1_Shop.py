@@ -14,13 +14,13 @@ else:
     cart = db["cart"].get(user, [])
 
     products = [
-        {"name": "Bamboo Toothbrush", "price": 50, "img": "assets/toothbrush.jpg"},
-        {"name": "Reusable Bag", "price": 120, "img": "assets/bag.jpg"},
-        {"name": "Organic Soap", "price": 80, "img": "assets/soap.jpg"},
-        {"name": "Eco Water Bottle", "price": 250, "img": "assets/bottle.jpg"},
-        {"name": "Compost Bin", "price": 500, "img": "assets/compost.jpg"},
-        {"name": "Beeswax Wrap", "price": 150, "img": "assets/Beeswax.jpg"}
-    ]
+    {"name": "Recycled Plastic Bricks", "price": 100, "img": "assets/plastic_bricks.jpg"},
+    {"name": "Plastic Bottle Planters", "price": 60, "img": "assets/planters.jpg"},
+    {"name": "Upcycled Tote Bag (Plastic)", "price": 120, "img": "assets/plastic_bag.jpg"},
+    {"name": "Plastic Waste Art Frame", "price": 180, "img": "assets/art_frame.jpg"},
+    {"name": "Recycled Plastic Sheet (1m²)", "price": 350, "img": "assets/plastic_sheet.jpg"},
+    {"name": "Plastic Rope Coil (10m)", "price": 70, "img": "assets/plastic_rope.jpg"}
+]
 
     for row in range(0, len(products), 3):
         cols = st.columns(3)
