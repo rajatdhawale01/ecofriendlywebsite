@@ -1,20 +1,42 @@
-import base64
-from components.ecobot import render_ecobot
 import streamlit as st
+import base64
 from utils import load_db, save_db
 from PIL import Image
+from components.ecobot import render_ecobot
 
 st.set_page_config(page_title="Login | PlastiMart", page_icon="👤", layout="wide")
 
-# ✅ Show visual branding image at bottom of page
-def show_bottom_image():
-    st.markdown("<hr>", unsafe_allow_html=True)
-    st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
+# ✅ Set custom background if needed
+def set_background(image_path):
+    with open(image_path, "rb") as image_file:
+        encoded = base64.b64encode(image_file.read()).decode()
+        st.markdown(f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }}
+        .block-container {{
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }}
+        h1, h2, h3, p, span, div, input {{
+            color: #222 !important;
+        }}
+        </style>
+        """, unsafe_allow_html=True)
 
-# ✅ Title
+# Apply background
+set_background("assets/login_bg.jpg")
+
+# ✅ Title and tabs
 st.markdown("<h2 style='text-align:center;'>🌿 Welcome to PlastiMart</h2>", unsafe_allow_html=True)
-
 tab1, tab2 = st.tabs(["🔑 Login", "🆕 Register"])
+
 db = load_db()
 
 # ✅ Login Form
@@ -47,5 +69,9 @@ with tab2:
             save_db(db)
             st.success("Registration successful. Please login.")
 
-# ✅ Show eco-friendly image at bottom
-show_bottom_image()
+# ✅ Optional bottom branding image
+st.markdown("<hr>", unsafe_allow_html=True)
+st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
+
+# ✅ Sidebar chatbot
+render_ecobot()
