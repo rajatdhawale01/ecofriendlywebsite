@@ -30,7 +30,7 @@ def set_local_background(image_path):
         """
         st.markdown(css, unsafe_allow_html=True)
 
-# Optional background
+# Optionally set a background
 # set_local_background("assets/background_img.jpg")
 
 st.set_page_config(page_title="Dashboard | PlastiMart", page_icon="📊", layout="wide")
@@ -41,9 +41,9 @@ if not user:
     st.warning("Please login first.")
     st.stop()
 
-# 🔄 Refresh Button
+# 🔄 Refresh Button using st.rerun()
 if st.button("🔄 Refresh Orders"):
-    st.experimental_rerun()
+    st.rerun()
 
 db = load_db()
 orders = [o for o in db["orders"] if o["user"] == user]
@@ -81,11 +81,11 @@ else:
         })
         st.bar_chart(df.set_index("Product"))
 
-    # 🔍 Show raw order data
+    # Debug view
     with st.expander("📦 View Raw Order Data"):
         st.json(orders)
 
-    # --- Orders Display ---
+    # --- Orders List ---
     for order in orders:
         st.subheader(f"Order #{order['id']} - {order['time']}")
         for item in order["items"]:
