@@ -31,7 +31,7 @@ def set_background(image_path):
         """, unsafe_allow_html=True)
 
 # Apply background
-#set_background("assets/login_bg.jpg")
+set_background("assets/login_visual.jpg")
 
 # ✅ Title and tabs
 st.markdown("<h2 style='text-align:center;'>🌿 Welcome to PlastiMart</h2>", unsafe_allow_html=True)
@@ -70,8 +70,8 @@ with tab2:
             st.success("Registration successful. Please login.")
 
 # ✅ Optional bottom branding image
-st.markdown("<hr>", unsafe_allow_html=True)
-st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
+#st.markdown("<hr>", unsafe_allow_html=True)
+#st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
 
 # ✅ Sidebar chatbot
 render_ecobot()
