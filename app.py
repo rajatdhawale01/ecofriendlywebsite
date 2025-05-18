@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 
 # ✅ Set page config
-st.set_page_config(page_title="EcoShop", page_icon="🛒", layout="wide")
+st.set_page_config(page_title="PlastiMart", page_icon="🛒", layout="wide")
 
 # ✅ Improved contrast for overlay + text
 def set_local_background(image_path):
@@ -32,15 +32,15 @@ def set_local_background(image_path):
         st.markdown(css, unsafe_allow_html=True)
 
 # ✅ Apply welcome background
-#set_local_background("assets/background_img.jpg")
+set_local_background("assets/login_visual.jpg")
 
 # ✅ Welcome header
-st.markdown("<h1 style='text-align:center;'>🌿 Welcome to EcoShop</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center;'>🌿 Welcome to PlastiMart</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align:center;'>Your One-Stop Store for Sustainable Living</h3>", unsafe_allow_html=True)
 
 st.write("---")
 st.markdown("""
-EcoShop is dedicated to helping you make eco-conscious choices without compromising on quality or convenience.
+PlastiMart is dedicated to helping you make eco-conscious choices without compromising on quality or convenience.
 
 Explore our selection of natural, reusable, and sustainable products that help you reduce waste and support a cleaner planet.
 
