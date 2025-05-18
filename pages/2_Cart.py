@@ -1,33 +1,9 @@
 import streamlit as st
-import base64
+import pandas as pd
 from utils import load_db, save_db
 from components.ecobot import render_ecobot
 
-# 🔄 Optional: Set a local background image
-def set_local_background(image_path):
-    with open(image_path, "rb") as img_file:
-        encoded = base64.b64encode(img_file.read()).decode()
-        css = f"""
-        <style>
-        .stApp {{
-            background-image: url("data:image/jpg;base64,{encoded}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }}
-        .block-container {{
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 10px;
-        }}
-        </style>
-        """
-        st.markdown(css, unsafe_allow_html=True)
-
-# 🌄 Use your local image
-#set_local_background("assets/background_img.jpg")
-
-# 🛒 Cart display
+st.set_page_config(page_title="Cart | EcoShop", page_icon="🛒", layout="wide")
 st.title("🛍️ Your Cart")
 
 user = st.session_state.get("user")
@@ -37,19 +13,26 @@ else:
     db = load_db()
     cart = db["cart"].get(user, [])
     if not cart:
-        st.info("Cart is empty.")
+        st.info("Your cart is currently empty.")
     else:
+        # 🧾 Format cart table
+        cart_data = []
         total = 0
-        for item in cart:
+        for i, item in enumerate(cart, start=1):
             line_total = item["price"] * item["quantity"]
+            cart_data.append([i, item["name"], item["quantity"], item["price"], line_total])
             total += line_total
-            st.write(f"{item['name']} - ₹{item['price']} x {item['quantity']} = ₹{line_total}")
-        st.write(f"### Total: ₹{total}")
-        if st.button("Clear Cart"):
+
+        df = pd.DataFrame(cart_data, columns=["No.", "Item", "Quantity", "Price", "Total"])
+        st.subheader("🧾 Cart Summary")
+        st.table(df)
+        st.markdown(f"### 🧮 Grand Total: {total}")
+
+        # Clear Cart Option
+        if st.button("🗑️ Clear Cart"):
             db["cart"][user] = []
             save_db(db)
-            st.success("Cart cleared.")
+            st.success("Cart has been cleared.")
 
-
-# ✅ Display EcoBot on the same page
+# 🤖 Chat Assistant
 render_ecobot()
