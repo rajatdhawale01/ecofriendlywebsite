@@ -32,7 +32,7 @@ def set_local_background(image_path):
         st.markdown(css, unsafe_allow_html=True)
 
 # ✅ Apply welcome background
-set_local_background("assets/home_page.jpg")
+#set_local_background("assets/home_page.jpg")
 
 # ✅ Welcome header
 st.markdown("<h1 style='text-align:center;'>🌿 Welcome to PlastiMart</h1>", unsafe_allow_html=True)
