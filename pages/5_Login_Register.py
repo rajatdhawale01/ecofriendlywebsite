@@ -1,41 +1,23 @@
-import streamlit as st
-from utils import load_db, save_db
 import base64
 from components.ecobot import render_ecobot
+import streamlit as st
+from utils import load_db, save_db
+from PIL import Image
 
-# ✅ Set page config FIRST
-#st.set_page_config(page_title="Login | EcoShop", page_icon="👤", layout="centered")
+st.set_page_config(page_title="Login | PlastiMart", page_icon="👤", layout="wide")
 
-# ✅ Function to apply local background image
-def set_local_background(image_path):
-    with open(image_path, "rb") as img_file:
-        encoded = base64.b64encode(img_file.read()).decode()
-        css = f"""
-        <style>
-        .stApp {{
-            background-image: url("data:image/jpg;base64,{encoded}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }}
-        .block-container {{
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 10px;
-        }}
-        </style>
-        """
-        st.markdown(css, unsafe_allow_html=True)
+# ✅ Show visual branding image at bottom of page
+def show_bottom_image():
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
 
-# Apply background image
-#set_local_background("assets/background_img.jpg")
-
-# Page content
-st.markdown("<h2 style='text-align:center;'>🌿 Welcome to EcoShop</h2>", unsafe_allow_html=True)
+# ✅ Title
+st.markdown("<h2 style='text-align:center;'>🌿 Welcome to PlastiMart</h2>", unsafe_allow_html=True)
 
 tab1, tab2 = st.tabs(["🔑 Login", "🆕 Register"])
 db = load_db()
 
+# ✅ Login Form
 with tab1:
     st.subheader("Login to your account")
     login_user = st.text_input("👤 Username", placeholder="Enter your username")
@@ -47,6 +29,7 @@ with tab1:
         else:
             st.error("User not found. Please register.")
 
+# ✅ Register Form
 with tab2:
     st.subheader("Create a new account")
     new_user = st.text_input("👤 New Username")
@@ -64,6 +47,5 @@ with tab2:
             save_db(db)
             st.success("Registration successful. Please login.")
 
-
-# ✅ Display EcoBot on the same page
-render_ecobot()
+# ✅ Show eco-friendly image at bottom
+show_bottom_image()
