@@ -1,10 +1,11 @@
 import streamlit as st
 import datetime
 import base64
+import pandas as pd
 from utils import load_db, save_db
 from components.ecobot import render_ecobot
 
-# 🌄 Optional: background
+# 🌄 Optional background
 def set_local_background(image_path):
     with open(image_path, "rb") as img_file:
         encoded = base64.b64encode(img_file.read()).decode()
@@ -25,7 +26,7 @@ def set_local_background(image_path):
         """
         st.markdown(css, unsafe_allow_html=True)
 
-# Optionally enable this
+# Apply background if needed
 # set_local_background("assets/checkout_bg.jpg")
 
 st.title("📦 Checkout")
@@ -39,31 +40,38 @@ else:
     if not cart:
         st.warning("Your cart is empty.")
     else:
-        # 🧾 Show item table
+        # ✅ Display cart as a formatted table
         st.subheader("🛒 Items in Your Cart")
+        cart_data = []
         total = 0
-        st.markdown("| Item | Quantity | Price | Total |")
-        st.markdown("|------|----------|--------|--------|")
         for item in cart:
             line_total = item["price"] * item["quantity"]
+            cart_data.append({
+                "Item": item["name"],
+                "Quantity": item["quantity"],
+                "Price (₹)": item["price"],
+                "Total (₹)": line_total
+            })
             total += line_total
-            st.markdown(f"| {item['name']} | {item['quantity']} | ₹{item['price']} | ₹{line_total} |")
-        st.markdown(f"**🧮 Grand Total: ₹{total}**")
 
-        # 🏠 Address
+        df = pd.DataFrame(cart_data)
+        st.table(df)
+        st.markdown(f"### 🧮 Grand Total: ₹{total}")
+
+        # 🏠 Shipping address form
         st.subheader("🏠 Shipping Address")
         name = st.text_input("Full Name")
         address = st.text_area("Address")
         city = st.text_input("City")
         pincode = st.text_input("Pincode")
 
-        # 💳 Payment
-        st.subheader("💳 Payment Details (Demo)")
+        # 💳 Payment details (demo only)
+        st.subheader("💳 Payment Details (Demo Only)")
         card_number = st.text_input("Card Number")
         expiry = st.text_input("Expiry Date (MM/YY)")
         cvv = st.text_input("CVV")
 
-        # ✅ Place order only if all details are filled
+        # ✅ Order submission
         if st.button("Place Order"):
             if not all([name, address, city, pincode, card_number, expiry, cvv]):
                 st.error("Please fill in all required fields.")
@@ -88,5 +96,5 @@ else:
                 save_db(db)
                 st.success("✅ Order placed successfully!")
 
-# ✅ Chat assistant
+# 🤖 EcoBot assistant
 render_ecobot()
