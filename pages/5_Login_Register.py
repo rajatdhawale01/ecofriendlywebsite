@@ -31,7 +31,7 @@ def set_background(image_path):
         """, unsafe_allow_html=True)
 
 # Apply background
-set_background("assets/login_bg.jpg")
+#set_background("assets/login_bg.jpg")
 
 # ✅ Title and tabs
 st.markdown("<h2 style='text-align:center;'>🌿 Welcome to PlastiMart</h2>", unsafe_allow_html=True)
