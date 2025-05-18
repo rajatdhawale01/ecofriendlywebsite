@@ -6,11 +6,13 @@ from components.ecobot import render_ecobot
 
 st.set_page_config(page_title="Login | PlastiMart", page_icon="👤", layout="wide")
 
-# ✅ Redirect if already logged in
+# ✅ HTML-based redirect to home
 if st.session_state.get("user"):
-    st.experimental_rerun()
+    st.markdown("✅ Redirecting to home...")
+    st.markdown('<meta http-equiv="refresh" content="0;url=/" />', unsafe_allow_html=True)
+    st.stop()
 
-# ✅ Optional background
+# Optional background setup
 def set_background(image_path):
     with open(image_path, "rb") as image_file:
         encoded = base64.b64encode(image_file.read()).decode()
@@ -36,27 +38,25 @@ def set_background(image_path):
 
 # Optional: set_background("assets/login_bg.jpg")
 
-# Title
+# Page title
 st.markdown("<h2 style='text-align:center;'>🌿 Welcome to PlastiMart</h2>", unsafe_allow_html=True)
 
 tab1, tab2 = st.tabs(["🔑 Login", "🆕 Register"])
 db = load_db()
 
-# 🔐 Login Tab
+# 🔐 Login
 with tab1:
     st.subheader("Login to your account")
     login_user = st.text_input("👤 Username", placeholder="Enter your username")
     login_pass = st.text_input("🔒 Password", type="password", placeholder="Enter password (dummy)")
-
     if st.button("🚪 Login"):
         if login_user in db["users"]:
             st.session_state["user"] = login_user
             st.success(f"Welcome back, {login_user}!")
-            st.experimental_rerun()
         else:
             st.error("User not found. Please register.")
 
-# 📝 Register Tab
+# 📝 Register
 with tab2:
     st.subheader("Create a new account")
     new_user = st.text_input("👤 New Username")
@@ -75,9 +75,9 @@ with tab2:
             save_db(db)
             st.success("Registration successful. Please login.")
 
-# Visual image
+# Bottom image
 st.markdown("<hr>", unsafe_allow_html=True)
 st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
 
-# EcoBot
+# 🤖 Chatbot
 render_ecobot()
