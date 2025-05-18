@@ -76,8 +76,8 @@ with tab2:
             st.success("Registration successful. Please login.")
 
 # Bottom image
-st.markdown("<hr>", unsafe_allow_html=True)
-st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
+#st.markdown("<hr>", unsafe_allow_html=True)
+#st.image("assets/login_visual.jpg", caption="🌿 PlastiMart - Sustainable Living Starts Here", use_container_width=True)
 
 # 🤖 Chatbot
 render_ecobot()
