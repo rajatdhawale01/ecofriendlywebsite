@@ -20,19 +20,19 @@ def set_local_background(image_path):
             background-attachment: fixed;
         }}
         .block-container {{
-            background-color: rgba(255, 255, 255, 0.95); /* stronger overlay */
+            background-color: rgba(255, 255, 255, 0.85); /* lighter overlay */
             padding: 4rem;
             border-radius: 15px;
         }}
         h1, h2, h3, p, span, div {{
-            color: #222 !important; /* force readable text color */
+            color: #333 !important; /* slightly lighter than black */
         }}
         </style>
         """
         st.markdown(css, unsafe_allow_html=True)
 
 # ✅ Apply welcome background
-set_local_background("assets/login_visual.jpg")
+set_local_background("assets/home_page.jpg")
 
 # ✅ Welcome header
 st.markdown("<h1 style='text-align:center;'>🌿 Welcome to PlastiMart</h1>", unsafe_allow_html=True)
