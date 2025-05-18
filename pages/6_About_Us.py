@@ -3,7 +3,7 @@ import base64
 from components.ecobot import render_ecobot
 
 # ✅ Wide layout + visible sidebar
-st.set_page_config(page_title="About Us | EcoShop", page_icon="🌿", layout="wide")
+st.set_page_config(page_title="About Us | PlastiMart", page_icon="🌿", layout="wide")
 
 def set_local_background(image_path):
     with open(image_path, "rb") as img_file:
@@ -39,10 +39,10 @@ def set_local_background(image_path):
 #set_local_background("assets/background_img.jpg")
 
 # ✅ Content
-st.title("🌿 About EcoShop")
+st.title("🌿 About PlastiMart")
 
 st.markdown("""
-Welcome to **EcoShop**, your one-stop store for sustainable living.  
+Welcome to **PlastiMart**, your one-stop store for sustainable living.  
 We are on a mission to make the planet cleaner, greener, and healthier — one eco-friendly product at a time.
 
 ---
@@ -71,7 +71,7 @@ We’re a team of engineers, designers, and environmentalists passionate about c
 ### 📬 Contact Us
 
 Have questions or feedback?  
-Reach us at: **support@ecoshop.org**
+Reach us at: **support@PlastiMart.org**
 """)
 
 # ✅ Display EcoBot on the same page
