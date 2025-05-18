@@ -5,7 +5,7 @@ import pandas as pd
 from utils import load_db, save_db
 from components.ecobot import render_ecobot
 
-# Optional background
+# Optional background styling
 def set_local_background(image_path):
     with open(image_path, "rb") as img_file:
         encoded = base64.b64encode(img_file.read()).decode()
@@ -26,7 +26,7 @@ def set_local_background(image_path):
         """
         st.markdown(css, unsafe_allow_html=True)
 
-# Optional background
+# Optional usage
 # set_local_background("assets/checkout_bg.jpg")
 
 st.title("📦 Checkout")
@@ -40,44 +40,36 @@ else:
     if not cart:
         st.warning("Your cart is empty.")
     else:
-        # Cart Table
+        # 🧾 Properly formatted table without DataFrame index
         st.subheader("🛒 Items in Your Cart")
         cart_data = []
         total = 0
         for i, item in enumerate(cart, start=1):
             line_total = item["price"] * item["quantity"]
-            cart_data.append({
-                "No.": i,
-                "Item": item["name"],
-                "Quantity": item["quantity"],
-                "Price": item["price"],
-                "Total": line_total
-            })
+            cart_data.append([i, item["name"], item["quantity"], item["price"], line_total])
             total += line_total
 
-        df = pd.DataFrame(cart_data)
-        st.table(df)
+        cart_df = pd.DataFrame(cart_data, columns=["No.", "Item", "Quantity", "Price", "Total"])
+        st.table(cart_df)  # shows without index
         st.markdown(f"### 🧮 Grand Total: {total}")
 
-        # Address form
+        # 🏠 Address form
         st.subheader("🏠 Shipping Address")
         name = st.text_input("Full Name").strip()
         address = st.text_area("Address").strip()
         city = st.text_input("City").strip()
         pincode = st.text_input("Pincode").strip()
 
-        # Payment
-        st.subheader("💳 Payment Details ")
+        # 💳 Payment (Demo)
+        st.subheader("💳 Payment Details (Demo Only)")
         card_number = st.text_input("Card Number").strip()
         expiry = st.text_input("Expiry Date (MM/YY)").strip()
         cvv = st.text_input("CVV").strip()
 
-        # Validate form
-        required_fields = [name, address, city, pincode, card_number, expiry, cvv]
+        # ✅ Validate and process order
         if st.button("Place Order"):
-            if any(field == "" for field in required_fields):
-                st.error("Please fill in all required fields.")
-            else:
+            required_fields = [name, address, city, pincode, card_number, expiry, cvv]
+            if all(field != "" for field in required_fields):
                 order_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 new_order = {
                     "id": len(db["orders"]) + 1,
@@ -97,6 +89,8 @@ else:
                 db["cart"][user] = []
                 save_db(db)
                 st.success("✅ Order placed successfully!")
+            else:
+                st.error("Please fill in all required fields.")
 
-# Chatbot
+# 🤖 Chatbot remains active
 render_ecobot()
